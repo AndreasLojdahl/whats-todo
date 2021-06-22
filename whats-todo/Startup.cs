@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using whats_todo.Interfaces;
+using whats_todo.Repositories;
 
 namespace whats_todo
 {
@@ -23,15 +25,17 @@ namespace whats_todo
 
         public IConfiguration Configuration { get; }
 
-        private readonly string _corsPolicyName = "DevPolicy";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-
+            // CORS
             services.AddCors();
+
+            // Need to be added here when DependencyInjection is used
+            services.AddTransient<ITodoTaskRepo, TodoTaskRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +49,8 @@ namespace whats_todo
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // CORS
             app.UseCors(x => x
                .AllowAnyMethod()
                .AllowAnyHeader()
