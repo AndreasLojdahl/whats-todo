@@ -32,9 +32,11 @@ export default {
   async created() {
     // this.$store.dispatch("fetchTasksTest");
 
-    const res = await fetch("https://localhost:5001/tasks");
+    const res = await fetch("api/tasks");
     const data = await res.json();
+    console.log(res, "res");
     console.log(data);
+    console.log("Hi!");
   },
 };
 </script>

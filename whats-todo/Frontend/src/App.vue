@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header title="Task Tracker" />
+      <Header title="Whats Todo?" />
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
