@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using whats_todo.Interfaces;
 using whats_todo.Repositories;
+using whats_todo.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace whats_todo
 {
@@ -30,7 +32,7 @@ namespace whats_todo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddDbContext<TaskContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("TodoTaskConnection")));
             // CORS
             services.AddCors();
 
