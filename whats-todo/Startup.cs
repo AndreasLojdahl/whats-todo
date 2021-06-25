@@ -15,6 +15,7 @@ using whats_todo.Interfaces;
 using whats_todo.Repositories;
 using whats_todo.Context;
 using Microsoft.EntityFrameworkCore;
+using whats_todo.Services;
 
 namespace whats_todo
 {
@@ -37,7 +38,10 @@ namespace whats_todo
             services.AddCors();
 
             // Need to be added here when DependencyInjection is used
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<ITodoTaskRepo, TodoTaskRepo>();
+            services.AddTransient<ITodoTaskService, TodoTaskService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

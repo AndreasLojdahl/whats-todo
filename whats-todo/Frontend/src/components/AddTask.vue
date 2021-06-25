@@ -32,22 +32,20 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault();
-      console.log(e);
-      if (!this.text) {
-        alert("Please add a task!");
+      if (!this.text || !this.day) {
+        alert("Please add text and day to task!");
+      } else {
+        const newTask = {
+          text: this.text,
+          day: this.day,
+          reminder: this.reminder,
+        };
+        this.$store.dispatch("addTask", newTask);
+
+        this.text = "";
+        this.day = "";
+        this.reminder = false;
       }
-
-      const newTask = {
-        // id: Math.floor(Math.random() * 100000),
-        text: this.text,
-        day: this.day,
-        reminder: this.reminder,
-      };
-      this.$store.dispatch("addTask", newTask);
-
-      this.text = "";
-      this.day = "";
-      this.reminder = false;
     },
   },
 };

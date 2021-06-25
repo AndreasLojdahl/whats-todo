@@ -19,23 +19,22 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchTasks({ commit }) {
-      const res = await fetch("api/tasks");
+      const res = await fetch("api/todotasks");
       const data = await res.json();
       commit("setTasks", data);
     },
-  
 
     async fetchTask({ commit }, taskId) {
       if (commit) {
         console.log();
       }
-      const res = await fetch(`api/tasks/${taskId}`);
+      const res = await fetch(`api/todotasks/${taskId}`);
       const data = await res.json();
       return data;
     },
 
     async addTask({ commit }, newTask) {
-      const res = await fetch("api/tasks", {
+      const res = await fetch("api/todotasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -43,7 +42,7 @@ export default new Vuex.Store({
         body: JSON.stringify(newTask),
       });
       const data = await res.json();
-
+      console.log(data, "CREATED TASK");
       let tasks = this.state.tasks;
       tasks = [...tasks, data];
       commit("setTasks", tasks);
@@ -70,18 +69,25 @@ export default new Vuex.Store({
       console.log("Before fetchTask");
       const taskToToggle = await this.dispatch("fetchTask", taskId);
       const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+      console.log("after fetch , fetched task from db ", taskToToggle);
 
-      const res = await fetch(`api/tasks/${taskId}`, {
+      await fetch(`api/todotasks/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(updatedTask),
       });
-      const data = await res.json();
+
+      const updatedTaskFromDb = await this.dispatch("fetchTask", taskId);
+      // const data = await res.json();
+
+      console.log("after update");
       let tasks = this.state.tasks;
       tasks = tasks.map((task) =>
-        task.id === taskId ? { ...task, reminder: data.reminder } : task
+        task.id === taskId
+          ? { ...task, reminder: updatedTaskFromDb.reminder }
+          : task
       );
       commit("setTasks", tasks);
     },

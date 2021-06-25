@@ -15,14 +15,31 @@ namespace whats_todo.Services
         {
             _todoTaskRepo = todoTaskRepo;
         }
+
+        public async void CreateTodoTask(TodoTask todoTask)
+        {
+           await _todoTaskRepo.CreateTodoTask(todoTask);
+        }
+
+        public async Task<bool> UpdateTodoTask(TodoTask todoTask)
+        {
+           _todoTaskRepo.UpdateTodoTask(todoTask);
+            return await _todoTaskRepo.SaveChanges();
+        }
+
         public TodoTask GetTodoTaskById(int id)
         {
-            throw new NotImplementedException();
+            return _todoTaskRepo.GetTodoTaskById(id);
         }
 
         public IEnumerable<TodoTask> GetTodoTasks()
         {
             return _todoTaskRepo.GetTodoTasks();
+        }
+
+        public Task<bool> DeleteTodoTask(TodoTask todoTask)
+        {
+            throw new NotImplementedException();
         }
     }
 }

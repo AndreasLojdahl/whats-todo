@@ -1,6 +1,7 @@
 <template>
   <div
     @dblclick="onToggleReminder(task.id)"
+    @click="onOnceClick()"
     :class="['task', task.reminder ? 'reminder' : '']"
   >
     <div class="cont">
@@ -23,6 +24,9 @@ export default {
     },
     onToggleReminder(taskId) {
       this.$store.dispatch("toggleReminder", taskId);
+    },
+    onOnceClick() {
+      console.log("CLICKED ONCE");
     },
   },
   created() {},

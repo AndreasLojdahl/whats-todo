@@ -6,9 +6,16 @@ using whats_todo.Models;
 
 namespace whats_todo.Interfaces
 {
-    interface ITodoTaskService
+    public interface ITodoTaskService
     {
         IEnumerable<TodoTask> GetTodoTasks();
         TodoTask GetTodoTaskById(int id);
+
+        void CreateTodoTask(TodoTask todoTask);
+
+        Task<bool> UpdateTodoTask(TodoTask todoTask);
+
+        Task<bool> DeleteTodoTask(TodoTask todoTask);
+        
     }
 }
