@@ -12,8 +12,11 @@ namespace whats_todo.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        // [Required]
         public string Text { get; set; }
+        //Required
         public string Day { get; set; }
+        //Required
         public bool Reminder { get; set; }
     }
 }

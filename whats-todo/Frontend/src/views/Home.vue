@@ -2,8 +2,11 @@
   <div class="home">
     <AddTask v-if="getShowTaskForm" />
     <Tasks :tasks="getTasks" />
-    <div v-if="!getShowTaskForm && getTasks.length <= 0">
-      <h4>
+    <div
+      class=""
+      v-if="!getShowTaskForm && getTasks ? getTasks.length <= 0 : false"
+    >
+      <h4 class="">
         Hi lets write some Tasks!<br />
         <br />
       </h4>

@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     onDelete(taskId) {
-      console.log(taskId);
       this.$store.dispatch("deleteTask", taskId);
     },
     onToggleReminder(taskId) {

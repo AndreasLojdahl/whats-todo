@@ -42,7 +42,7 @@ export default new Vuex.Store({
         body: JSON.stringify(newTask),
       });
       const data = await res.json();
-      console.log(data, "CREATED TASK");
+
       let tasks = this.state.tasks;
       tasks = [...tasks, data];
       commit("setTasks", tasks);

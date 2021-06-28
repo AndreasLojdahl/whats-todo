@@ -97,7 +97,7 @@ namespace whats_todo.Controllers
             var isSuccess = await _todoTaskService.DeleteTodoTask(todoTaskFromDb);
             if (isSuccess)
             {
-                return Ok();
+                return NoContent();
             }
             return BadRequest("Couldn't Delete Task");
         }
