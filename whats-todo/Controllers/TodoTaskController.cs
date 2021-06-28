@@ -36,6 +36,7 @@ namespace whats_todo.Controllers
         /// <summary> Gets a specific TodoTask by an id </summary>
         /// <returns>A todoTaskReadDto from a specific id </returns>
         /// <response code="200">Returns a specific TodoTasks</response>
+        /// <response code="404">If unable to find TodoTask</response>
         [HttpGet("{id}", Name ="GetTodoTaskById")]
         public ActionResult<TodoTaskReadDto> GetTodoTaskById(int id)
         {
@@ -61,9 +62,8 @@ namespace whats_todo.Controllers
         }
 
         /// <summary> Updates a TodoTask </summary>
-        /// <response code="204">If a company user is successfully updated</response>
-        ///   /// <response code="404">If unable to find company user</response>
-        ///    /// <response code="400">If params are invalid</response>
+        /// <response code="204">If a TodoTask is successfully updated</response>
+        /// <response code="404">If unable to find TodoTask</response>
         [HttpPut("{id}",Name = "UpdateTodoTasks")]
         public async Task<ActionResult> UpdateTodoTasks(int id, [FromBody] TodoTaskUpdateDto todoTaskUpdate)
         {
@@ -81,11 +81,13 @@ namespace whats_todo.Controllers
             {
                 return NoContent();
             }
-            return BadRequest("Couldn't Update Task");
+            return StatusCode(500);
 
         }
 
         /// <summary> Deletes a TodoTask </summary>
+        /// <response code="204">If a TodoTask is successfully deleted</response>
+        /// <response code="404">If unable to find TodoTask</response>
         [HttpDelete("{id}", Name = "DeleteTodoTasks")]
         public async Task<ActionResult> DeleteTodoTasks(int id)
         {
@@ -99,7 +101,7 @@ namespace whats_todo.Controllers
             {
                 return NoContent();
             }
-            return BadRequest("Couldn't Delete Task");
+            return StatusCode(500);
         }
     }
 }
