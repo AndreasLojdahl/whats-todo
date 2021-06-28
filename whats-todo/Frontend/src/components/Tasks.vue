@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="tasks.length > 0">
     <div class="margin-5" v-for="task in tasks" :key="task.id">
       <Task :task="task" />
     </div>

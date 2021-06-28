@@ -37,9 +37,10 @@ namespace whats_todo.Services
             return _todoTaskRepo.GetTodoTasks();
         }
 
-        public Task<bool> DeleteTodoTask(TodoTask todoTask)
+        public async Task<bool> DeleteTodoTask(TodoTask todoTask)
         {
-            throw new NotImplementedException();
+            _todoTaskRepo.DeleteTodoTask(todoTask);
+            return await _todoTaskRepo.SaveChanges();
         }
     }
 }

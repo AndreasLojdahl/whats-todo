@@ -50,7 +50,7 @@ export default new Vuex.Store({
 
     async deleteTask({ commit }, taskId) {
       if (confirm("Are you sure you want to delete?")) {
-        const res = await fetch(`api/tasks/${taskId}`, {
+        const res = await fetch(`api/todotasks/${taskId}`, {
           method: "DELETE",
         });
         if (res.status === 200) {
@@ -66,12 +66,10 @@ export default new Vuex.Store({
     },
 
     async toggleReminder({ commit }, taskId) {
-      console.log("Before fetchTask");
       const taskToToggle = await this.dispatch("fetchTask", taskId);
       const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
-      console.log("after fetch , fetched task from db ", taskToToggle);
 
-      await fetch(`api/todotasks/${taskId}`, {
+      const res = await fetch(`api/todotasks/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -79,17 +77,15 @@ export default new Vuex.Store({
         body: JSON.stringify(updatedTask),
       });
 
-      const updatedTaskFromDb = await this.dispatch("fetchTask", taskId);
-      // const data = await res.json();
-
-      console.log("after update");
-      let tasks = this.state.tasks;
-      tasks = tasks.map((task) =>
-        task.id === taskId
-          ? { ...task, reminder: updatedTaskFromDb.reminder }
-          : task
-      );
-      commit("setTasks", tasks);
+      if (res.status === 204) {
+        let tasks = this.state.tasks;
+        tasks = tasks.map((task) =>
+          task.id === taskId
+            ? { ...task, reminder: updatedTask.reminder }
+            : task
+        );
+        commit("setTasks", tasks);
+      }
     },
 
     toggleTaskForm({ commit }) {

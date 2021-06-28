@@ -1,21 +1,39 @@
 <template>
-  <form @submit="onSubmit" class="add-form">
-    <div class="form-control">
+  <form @submit="onSubmit" class="add-form mb-5">
+    <div class="form-control form-group">
       <label for="">Task</label>
-      <input v-model="text" type="text" name="text" placeholder="Add Task" />
+      <input
+        class="form-control"
+        v-model="text"
+        type="text"
+        name="text"
+        placeholder="Add Task"
+      />
     </div>
-    <div class="form-control">
+    <div class="form-control form-group">
       <label for="">Day & Time</label>
-      <input v-model="day" name="day" placeholder="Add Day & Time" />
+      <input
+        v-model="day"
+        name="day"
+        class="form-control"
+        placeholder="Add Day & Time"
+      />
     </div>
-    <div class="form-control reminder">
-      <label for="">Set Reminder</label>
-      <input v-model="reminder" type="checkbox" name="reminder" />
+    <div class="btm-cont">
+      <div class="form-control form-check reminder form-group w-50">
+        <label class="form-check-label" for="reminder">Set Reminder</label>
+        <input
+          class="form-check-input"
+          v-model="reminder"
+          type="checkbox"
+          name="reminder"
+        />
+      </div>
+
+      <button type="submit" value="Save Task" class="btn btn-primary">
+        Submit
+      </button>
     </div>
-    <!-- <button @click="onSubmit(e)" type="submit" class="btn btn-block">
-      Save Task bt
-    </button> -->
-    <input type="submit" value="Save Task" class="btn btn-block" />
   </form>
 </template>
 <script>
@@ -54,7 +72,6 @@ export default {
 .add-form {
   display: flex;
   flex-direction: column;
-  padding: 20px;
 }
 
 .form-control {
@@ -79,5 +96,11 @@ export default {
   font-weight: 600;
   margin-bottom: 5px;
   text-align: start;
+}
+
+.btm-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 </style>

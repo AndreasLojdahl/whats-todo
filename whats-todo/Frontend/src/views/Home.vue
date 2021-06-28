@@ -1,20 +1,31 @@
 <template>
   <div class="home">
-    <div>TJENA</div>
     <AddTask v-if="getShowTaskForm" />
     <Tasks :tasks="getTasks" />
+    <div v-if="!getShowTaskForm && getTasks.length <= 0">
+      <h4>
+        Hi lets write some Tasks!<br />
+        <br />
+      </h4>
+      <p>
+        Click the button "Add Task" and fill in the form to create a new Task
+        and "Close" to close the section when you're done!
+      </p>
+      <p>
+        To Update and toggle the reminder on a created task just double click
+        it!
+      </p>
+      <p>And click the "Delete" button if you want to delete a task</p>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import Counter from "../components/Counter.vue";
 import Tasks from "../components/Tasks.vue";
 import AddTask from "../components/AddTask.vue";
 export default {
   name: "Home",
   components: {
-    // Counter,
     Tasks,
     AddTask,
   },
@@ -31,12 +42,6 @@ export default {
   },
   async created() {
     this.$store.dispatch("fetchTasks");
-
-    // const res = await fetch("api/tasks");
-    // const data = await res.json();
-    // console.log(res, "res");
-    // console.log(data);
-    // console.log("Hi!");
   },
 };
 </script>

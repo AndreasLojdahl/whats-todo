@@ -1,11 +1,9 @@
 <template>
-  <div id="app">
+  <div class="" id="app">
     <div id="nav">
       <Header title="Whats Todo?" />
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
     </div>
-    <router-view />
+    <router-view class="container" />
   </div>
 </template>
 <script>
@@ -27,16 +25,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* padding: 0px 50px; */
-
   display: flex;
   justify-content: center;
   flex-direction: column;
-}
-
-.btn {
-  border-radius: 8px;
-  padding: 10px 20px;
 }
 
 .btn-block {
@@ -47,16 +38,23 @@ export default {
   font-weight: 500;
 }
 
-#nav {
-  padding: 30px;
+.row {
+  display: flex;
+  flex-direction: row;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.white {
+  color: white;
+}
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.hover:hover {
+  cursor: pointer;
+  transform: scale(1.01);
 }
 </style>

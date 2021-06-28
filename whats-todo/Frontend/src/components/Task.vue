@@ -1,16 +1,20 @@
 <template>
   <div
     @dblclick="onToggleReminder(task.id)"
-    @click="onOnceClick()"
-    :class="['task', task.reminder ? 'reminder' : '']"
+    :class="['task', 'row', task.reminder ? 'reminder' : '']"
   >
-    <div class="cont">
+    <div class="col-6 cont">
       <div class="text">{{ task.text }}</div>
-      <i @click="onDelete(task.id)" class="fas fa-times"></i>
+      <div class="day">{{ task.day }}</div>
     </div>
-    <div class="day">{{ task.day }}</div>
+    <div class="col-6 d-flex justify-content-end">
+      <button @click="onDelete(task.id)" class="btn btn-danger hover">
+        Delete
+      </button>
+    </div>
   </div>
 </template>
+
 <script>
 export default {
   name: "Task",
@@ -25,22 +29,19 @@ export default {
     onToggleReminder(taskId) {
       this.$store.dispatch("toggleReminder", taskId);
     },
-    onOnceClick() {
-      console.log("CLICKED ONCE");
-    },
   },
   created() {},
 };
 </script>
+
 <style scoped>
 .task {
   padding: 10px 20px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
   align-items: flex-start;
+  background-color: white;
   border-radius: 10px;
   cursor: pointer;
+  align-items: center;
 }
 .text {
   font-size: 16px;
@@ -50,15 +51,10 @@ export default {
   font-size: 12px;
 }
 .cont {
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.fas {
-  color: red;
-}
-
 .reminder {
   border-left: solid 6px green;
 }

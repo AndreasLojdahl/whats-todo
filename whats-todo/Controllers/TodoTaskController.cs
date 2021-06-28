@@ -10,7 +10,7 @@ using whats_todo.Models;
 
 namespace whats_todo.Controllers
 {
-    [Route("todotasks")]
+    [Route("api/todotasks")]
     [ApiController]
     public class TodoTaskController : Controller
     {
@@ -52,7 +52,7 @@ namespace whats_todo.Controllers
         /// <response code="201">Returns a created TodoTasks</response>
         [HttpPost(Name = "CreateTodoTasks")]
         public ActionResult<TodoTaskReadDto> CreateTodoTasks([FromBody] TodoTaskCreateDto todoTask)
-        {
+        {   
             var newTodoTask = _mapper.Map<TodoTask>(todoTask);
             _todoTaskService.CreateTodoTask(newTodoTask);
 
@@ -60,6 +60,10 @@ namespace whats_todo.Controllers
             return CreatedAtRoute(nameof(GetTodoTaskById), new { Id = readTodoTask.Id }, readTodoTask);
         }
 
+        /// <summary> Updates a TodoTask </summary>
+        /// <response code="204">If a company user is successfully updated</response>
+        ///   /// <response code="404">If unable to find company user</response>
+        ///    /// <response code="400">If params are invalid</response>
         [HttpPut("{id}",Name = "UpdateTodoTasks")]
         public async Task<ActionResult> UpdateTodoTasks(int id, [FromBody] TodoTaskUpdateDto todoTaskUpdate)
         {
@@ -72,27 +76,30 @@ namespace whats_todo.Controllers
             _mapper.Map(todoTaskUpdate, todoTaskFromDb);
 
             var isSucces = await _todoTaskService.UpdateTodoTask(todoTaskFromDb);
-            Console.WriteLine(isSucces);
             
             if (isSucces)
             {
                 return NoContent();
             }
-            return StatusCode(500);
+            return BadRequest("Couldn't Update Task");
 
         }
 
-
+        /// <summary> Deletes a TodoTask </summary>
         [HttpDelete("{id}", Name = "DeleteTodoTasks")]
-        public ActionResult DeleteTodoTasks(int id)
+        public async Task<ActionResult> DeleteTodoTasks(int id)
         {
             var todoTaskFromDb = _todoTaskService.GetTodoTaskById(id);
             if (todoTaskFromDb == null)
             {
                 return NotFound();
             }
-            _todoTaskService.DeleteTodoTask(todoTaskFromDb);
-            return Ok();
+            var isSuccess = await _todoTaskService.DeleteTodoTask(todoTaskFromDb);
+            if (isSuccess)
+            {
+                return Ok();
+            }
+            return BadRequest("Couldn't Delete Task");
         }
     }
 }

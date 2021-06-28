@@ -2,7 +2,7 @@
   <button
     @click="onClick()"
     :style="{ background: bgColor, color: textColor }"
-    class="btn"
+    class="btn hover"
   >
     {{ text }}
   </button>
